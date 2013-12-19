@@ -19,13 +19,13 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(spec|features)/})
   gem.require_paths = ['lib']
 
-  gem.add_development_dependency('rails', '~> 3.2.13')
+  gem.add_development_dependency('rails', '~> 4.0.0')
   gem.add_development_dependency('rake', '~> 10.0.2')
   gem.add_development_dependency('rspec', '~> 2.12.0')
-  gem.add_development_dependency('generator_spec')
+  gem.add_development_dependency('generator_spec', '0.9.2')
   gem.add_development_dependency('activerecord')
   gem.add_development_dependency('sqlite3')
-  gem.add_development_dependency('mongoid')
+  gem.add_development_dependency('mongoid',"~> 4.0.0.alpha1")
   gem.add_development_dependency('railties')
   gem.add_development_dependency('guard-rspec', '~> 2.2.1')
   gem.add_development_dependency('simplecov', '~> 0.7.1')

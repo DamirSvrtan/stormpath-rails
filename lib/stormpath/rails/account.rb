@@ -40,7 +40,7 @@ module Stormpath
 
         begin
           attr_accessible *STORMPATH_FIELDS
-        rescue RuntimeError
+        rescue
         end
 
         before_create :create_account_on_stormpath

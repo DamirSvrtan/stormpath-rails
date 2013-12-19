@@ -11,6 +11,7 @@ describe "Mongoid document" do
   subject { MongoidEntity.new }
 
   before(:each) do
+    # binding.pry
     Mongoid::Config.connect_to("stormpath_rails_test")
   end
 
