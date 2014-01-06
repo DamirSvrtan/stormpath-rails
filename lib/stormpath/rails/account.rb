@@ -81,11 +81,30 @@ module Stormpath
           end
         end
 
+
+        def self.custom_data_attributes(*attributes)
+          @@custom_data_attributes = attributes
+        end
+
+        def set_custom_data
+          @@custom_data_attributes.each do |custom_data_attribute|
+            stormpath_account.custom_data.put(custom_data_attribute, self.send(custom_data_attribute))
+          end
+        end
+
+        def on_create_save_custom_data
+          if @@custom_data_attributes
+            set_custom_data
+            stormpath_account.save
+          end
+        end
+
         def create_account_on_stormpath
           begin
             @stormpath_account = Stormpath::Rails::Client.create_account! stormpath_pre_create_attrs
             stormpath_pre_create_attrs.clear
             self.stormpath_url = @stormpath_account.href
+            on_create_save_custom_data
           rescue Stormpath::Error => error
             self.errors[:base] << error.to_s
             false
@@ -95,6 +114,7 @@ module Stormpath
         def update_account_on_stormpath
           if self.stormpath_url.present?
             begin
+              set_custom_data
               stormpath_account.save
             rescue Stormpath::Error => error
               self.errors[:base] << error.to_s
@@ -116,7 +136,11 @@ module Stormpath
             true
           end
         end
+
+
       end
+
+
     end
   end
 end
